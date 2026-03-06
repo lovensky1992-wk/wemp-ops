@@ -101,20 +101,22 @@ node scripts/setup.mjs
 
 ### Step 4.5: 正文配图
 
-**原则：真实截图 > AI 生图 > 不放图**
+**原则：真实截图 > AI 信息图 > 不放图**
 
-讲真实经历的文章，配图应该是真实的（终端截图、编辑器截图、产品截图）。
-需要配图时，用 HTML 模拟终端/编辑器界面 + 浏览器截图的方式自制。
+详细风格模板和 Prompt 见 `references/illustration-prompts.md`。
 
 配图决策：
 ```
-有真实的终端/代码/配置可展示？ → HTML 模拟截图
-有数据对比（性能/价格）？ → 生成对比图
-有复杂架构？ → 架构示意图
+有真实的终端/代码/产品界面？ → 真实截图 + 美化（scripts/beautify-screenshot.sh --shadow）
+有概念/流程需要解释？ → Notion 手绘信息图（nano-banana-pro）
+有数据对比/技术架构？ → 扁平科技信息图（nano-banana-pro）
 文章内容简单？ → 不放图，避免凑数
 ```
 
-配图数量：0-3 张，宁缺毋滥。
+截图美化：`~/.openclaw/workspace/scripts/beautify-screenshot.sh <input> [output] --shadow --bg "#f5f5f5"`
+水印去除：`~/.openclaw/workspace/scripts/remove-watermark.sh <input> [output]`（AI 生图必须去水印）
+
+配图数量：2-4 张，宁缺毋滥。同一篇文章的 AI 生图在同一次对话中生成，保持风格一致。
 
 ### Step 4.6: 产品截图获取
 
