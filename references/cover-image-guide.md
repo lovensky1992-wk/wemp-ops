@@ -1,11 +1,16 @@
 # 封面图设计指南
 
-使用 nano-banana-pro 技能生成封面图。
+## 生图工具优先级
+
+1. **Seedream 5.0 Lite**（优先）：`~/.openclaw/workspace/scripts/seedream-generate.sh`，0.22元/张，无水印
+2. **nano-banana-pro**（备选）：Gemini 免费层级，需去水印，额度可能耗尽
+3. **HTML 截图**（兜底）：精确控制布局时使用
 
 ## 尺寸
 
 - 比例 2.35:1（横版，适配公众号封面）
-- 建议实际尺寸 900×383 或更大
+- Seedream 最小像素要求 ≥ 3686400，推荐 `2560x1440`(16:9) 生成后裁剪为 2.35:1
+- nano-banana-pro 建议实际尺寸 900×383 或更大
 
 ## 配色方案
 
@@ -25,6 +30,19 @@
 - 文字和视觉不重叠
 
 ## Prompt 模板
+
+### Seedream 5.0 Lite（优先）
+
+```bash
+# 生成 16:9 封面，再裁剪为 2.35:1
+~/.openclaw/workspace/scripts/seedream-generate.sh \
+  "专业公众号封面图，主题[主题]。[配色]渐变背景。左侧40%放大号中文标题「[标题]」和副标题「[副标题]」，右侧60%放[视觉元素]，现代3D风格图标。干净设计，文字和视觉不重叠。横版，高质量。" \
+  cover.jpg "2560x1440" 1
+# 裁剪为 2.35:1
+sips -c 1090 2560 cover.jpg
+```
+
+### nano-banana-pro（备选）
 
 ```
 A professional WeChat article cover image about [主题].

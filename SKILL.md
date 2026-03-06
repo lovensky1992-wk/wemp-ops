@@ -88,16 +88,23 @@ node scripts/setup.mjs
 
 设计指南见 `references/cover-image-guide.md`。两种方案：
 
-**方案 A（优先）：nano-banana-pro 生成**
-- 根据内容类型选配色
-- 2.35:1 横版，中文标题 + 副标题
+**方案 A（优先）：Seedream 5.0 Lite 生成**
+- `~/.openclaw/workspace/scripts/seedream-generate.sh "prompt" output.jpg "2560x1080" 1`
+- 0.22 元/张，质量高，无免费额度限制
+- 根据内容类型选配色（见 cover-image-guide.md）
+- 2.35:1 横版：先用 `2560x1440`(16:9) 生成，再 `sips -c 1090 2560` 裁剪为 2.35:1
+- 或用 `2880x1280` 生成后裁剪
 - ⚠️ 不用 emoji（浏览器截图会变色块），用纯文字 + 几何图形
 
-**方案 B（备选）：HTML 渲染 + 浏览器截图**
+**方案 B（备选）：nano-banana-pro 生成**
+- Gemini 免费层级，额度可能耗尽
+- 适合轻量配图、额度充足时使用
+
+**方案 C（兜底）：HTML 渲染 + 浏览器截图**
 - 写一个 HTML 页面（渐变背景 + 标题文字 + SVG 图形）
 - 用 `python3 -m http.server` 本地启动
 - 用 browser 工具 navigate + screenshot 截图
-- 适用于 Gemini 额度不足或需要精确控制布局时
+- 适用于需要精确控制布局时
 
 ### Step 4.5: 正文配图
 
@@ -108,13 +115,17 @@ node scripts/setup.mjs
 配图决策：
 ```
 有真实的终端/代码/产品界面？ → 真实截图 + 美化（scripts/beautify-screenshot.sh --shadow）
-有概念/流程需要解释？ → Notion 手绘信息图（nano-banana-pro）
-有数据对比/技术架构？ → 扁平科技信息图（nano-banana-pro）
+有概念/流程需要解释？ → Seedream 手绘信息图（优先）或 nano-banana-pro
+有数据对比/技术架构？ → Seedream 扁平科技信息图（优先）或 nano-banana-pro
 文章内容简单？ → 不放图，避免凑数
 ```
 
+**AI 生图优先级：Seedream 5.0 Lite → nano-banana-pro → ComfyUI**
+- Seedream: `~/.openclaw/workspace/scripts/seedream-generate.sh "prompt" output.jpg "2560x1440"`
+- 正文插图推荐 16:9 `2560x1440` 或 4:3 `2240x1680`
+
 截图美化：`~/.openclaw/workspace/scripts/beautify-screenshot.sh <input> [output] --shadow --bg "#f5f5f5"`
-水印去除：`~/.openclaw/workspace/scripts/remove-watermark.sh <input> [output]`（AI 生图必须去水印）
+水印去除：`~/.openclaw/workspace/scripts/remove-watermark.sh <input> [output]`（nano-banana-pro 生图需去水印，Seedream 无水印）
 
 配图数量：2-4 张，宁缺毋滥。同一篇文章的 AI 生图在同一次对话中生成，保持风格一致。
 
@@ -251,3 +262,42 @@ AI 生成回复建议时遵循 `persona.md` 的语气规范，用户确认后再
 ⚠️ **不要写到 `openclaw.json` 的 `channels` 里！** `channels` 只接受 OpenClaw 内置渠道类型（dingtalk/telegram/discord 等），写入未知类型会导致 gateway 校验失败并不断重启。
 
 其他配置（数据源偏好、报告时间等）同样在 `config/default.json` 中调整。
+
+---
+
+## 多版本分发（一篇→多平台）
+
+公众号文章完成后，可一键生成其他平台版本。
+
+### 触发词
+- "把这篇文章分发到小红书/X"
+- "生成多平台版本"
+- "同步到其他平台"
+
+### 分发流程
+
+#### Step 1: 读取源文章
+从公众号草稿箱/已发布文章中提取：标题、正文、核心观点、配图
+
+#### Step 2: 生成小红书版本
+自动调用 `xiaohongshu-ops` 技能：
+1. **标题**：从公众号标题中提炼，加 emoji，≤20 字
+2. **正文**：缩写到 300-600 字，口语化改写，去掉长段落
+3. **配图**：从公众号文章中选 1-3 个核心观点，制作信息卡（Seedream 优先，备选 nano-banana-pro / HTML截图）
+4. **标签**：5-10 个小红书话题标签
+5. 通过 openclaw browser 发布到创作中心
+
+#### Step 3: 生成 X/Twitter 版本
+1. **单条推文**（≤280 字符）：提炼文章最核心的一个观点，英文或中文
+2. **Thread 版本**（可选）：3-5 条推文，适合深度内容
+3. 通过 openclaw browser 发布（参考 TOOLS.md 中的 X 发帖 SOP）
+4. 发帖前**必须让老板确认内容**
+
+#### Step 4: 记录分发状态
+在公众号文章对应的 memory 记录中标注已分发平台和链接
+
+### 改写原则
+- 每个平台版本必须**重新改写**，不是复制粘贴
+- 小红书：口语化、短句、emoji 多用、互动提问结尾
+- X/Twitter：精炼、有冲击力、适合英文受众（如有）
+- 保持核心观点一致，但表达方式适配平台调性
