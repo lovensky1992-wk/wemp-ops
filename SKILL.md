@@ -116,6 +116,41 @@ node scripts/setup.mjs
 
 配图数量：0-3 张，宁缺毋滥。
 
+### Step 4.6: 产品截图获取
+
+文章涉及线上产品（AI 工具、SaaS 产品等）时，截取真实产品界面作为配图。
+
+**公开页面（无需登录）：**
+```bash
+# 1. 打开产品页面
+browser action:open url:"https://example.com/product"
+
+# 2. 等待加载完成后截图
+browser action:screenshot fullPage:false type:png
+
+# 3. 裁剪/缩放（macOS sips 工具）
+sips -z <高度> <宽度> screenshot.png                    # 缩放
+sips -c <高度> <宽度> screenshot.png                    # 裁剪居中
+sips --resampleWidth 800 screenshot.png                  # 按宽度等比缩放
+
+# 4. 上传到微信素材库
+node scripts/publisher.mjs  # 通过 --markdown 自动上传
+# 或手动：在 utils.mjs 中调用 uploadArticleImage()
+```
+
+**需登录页面（付费产品/内部系统）：**
+1. 让用户在 Chrome 打开目标页面
+2. 用户点击 OpenClaw Browser Relay 工具栏图标 attach 该 tab
+3. `browser action:screenshot profile:chrome` 截图
+4. 截图后同上流程裁剪上传
+
+**截图规范：**
+- 宽度 600-900px，避免过大（微信有尺寸限制）
+- 隐藏/打码敏感信息（用户名、私有数据等）
+- 浏览器地址栏按需保留（能说明产品来源时保留）
+- 优先截取核心功能区域，不截全屏
+- 深色/浅色主题根据文章风格选择
+
 ### Step 5: 排版美化
 
 ```bash
@@ -134,21 +169,28 @@ python3 scripts/markdown_to_html.py --input article.md --theme tech --output art
 ### Step 6: 推送草稿箱
 
 ```bash
-# 创建草稿
+# 一键从 Markdown 到草稿（推荐，自动转 HTML + 上传图片 + 清理旧同名草稿）
+node scripts/publisher.mjs --markdown article.md --title "文章标题" --cover cover.png
+
+# 或手动分步：先转 HTML 再推送
+python3 scripts/markdown_to_html.py --input article.md --theme tech --output article.html --upload
 node scripts/publisher.mjs --title "文章标题" --content article.html --cover cover.png
+
+# 跳过自动清理旧草稿
+node scripts/publisher.mjs --markdown article.md --title "标题" --cover cover.png --no-cleanup
 
 # 列出草稿
 node scripts/publisher.mjs --list
 
-# 删除旧草稿
-node scripts/publisher.mjs --delete --media-id <旧草稿id>
+# 删除草稿
+node scripts/publisher.mjs --delete --media-id <id>
 
 # 发布草稿（用户确认后）
 node scripts/publisher.mjs --publish --media-id <草稿media_id>
 ```
 
 **默认停在草稿箱，不自动发布。** 告知用户草稿已创建，确认后再发布。
-推送新版本后，主动提醒用户删除旧草稿。
+推送新版本时自动清理同标题旧草稿（`--no-cleanup` 跳过）。
 
 ### Step 7: 交付
 
