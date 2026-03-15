@@ -151,28 +151,39 @@ node scripts/setup.mjs
 - 用 browser 工具 navigate + screenshot 截图
 - 适用于需要精确控制布局时
 
-### Step 4.5: 正文配图
+### Step 4.5: 配图规划与生成
 
-**原则：真实截图 > AI 信息图 > 不放图**
+完整指南见 `references/illustration-prompts.md`（Type×Style 矩阵、Prompt 规范、风格锚点）。
 
-详细风格模板和 Prompt 见 `references/illustration-prompts.md`。
+**4.5a 配图规划（先规划再生图）**
 
-配图决策：
-```
-有真实的终端/代码/产品界面？ → 真实截图 + 美化（scripts/beautify-screenshot.sh --shadow）
-有概念/流程需要解释？ → Seedream 手绘信息图（优先）或 nano-banana-pro
-有数据对比/技术架构？ → Seedream 扁平科技信息图（优先）或 nano-banana-pro
-文章内容简单？ → 不放图，避免凑数
-```
+1. **扫描文章结构**，按以下规则标注潜在配图位置：
+   - `##` 标题后的第一段 → 潜在配图点
+   - 概念首次出现 → 用插图辅助解释
+   - 转折/对比处（"但是"、"然而"、"相比之下"）→ 适合对比图
+   - 连续超 800 字无任何视觉元素 → 需要打断
 
-**AI 生图优先级：Seedream 5.0 Lite → nano-banana-pro → ComfyUI**
-- Seedream: `~/.openclaw/workspace/scripts/seedream-generate.sh "prompt" output.jpg "2560x1440"`
-- 正文插图推荐 16:9 `2560x1440` 或 4:3 `2240x1680`
+2. **内容信号自动匹配**，根据段落关键词推荐 Type：
+   - 架构/分层/系统 → `framework` | 步骤/流程 → `flowchart` | vs/对比 → `comparison`
+   - 数据/百分比 → `infographic` | 叙事/经历 → `scene` | 代码/界面 → `screenshot`
 
-截图美化：`~/.openclaw/workspace/scripts/beautify-screenshot.sh <input> [output] --shadow --bg "#f5f5f5"`
-水印去除：`~/.openclaw/workspace/scripts/remove-watermark.sh <input> [output]`（nano-banana-pro 生图需去水印，Seedream 无水印）
+3. **锁定全文 Style**（一篇文章只用一种 AI 生图风格）：
+   - 技术/产品文 → `notion-sketch`（默认）| 数据/架构文 → `tech-flat` | 故事/教育文 → `warm-doodle`
 
-配图数量：2-4 张，宁缺毋滥。同一篇文章的 AI 生图在同一次对话中生成，保持风格一致。
+4. **输出配图计划表**（保存到 `illustration-plan.md`），让老板确认后再生图。
+   密度参考：2000 字 3 张、3000 字 4-5 张，正文配图硬上限 5 张。
+
+**4.5b 生图执行**
+
+- **AI 生图优先级**：Seedream 5.0 Lite → nano-banana-pro → ComfyUI
+  - Seedream: `~/.openclaw/workspace/scripts/seedream-generate.sh "prompt" output.jpg "2560x1440"`
+  - 正文插图 16:9 `2560x1440`
+- **Prompt 按 LDSCS-R 六层结构构造**：Layout → Data → Semantics → Characters → Style → Ratio
+- **风格锚点**：第一张图成功后，记录风格特征到 `prompts/style-anchor.md`，后续图片引用保持一致
+- **Prompt 持久化**：每张图的 prompt 保存到 `prompts/NN-{type}-{slug}.md`，便于回溯修改
+- 截图美化：`~/.openclaw/workspace/scripts/beautify-screenshot.sh <input> [output] --shadow --bg "#f5f5f5"`
+- 水印去除：`~/.openclaw/workspace/scripts/remove-watermark.sh <input> [output]`（nano-banana-pro 需去水印）
+- 配图数量：宁缺毋滥。不确定要不要配图 → 不配。
 
 ### Step 4.6: 产品截图获取
 
