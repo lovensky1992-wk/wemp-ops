@@ -1,5 +1,6 @@
 ---
 name: wemp-ops
+version: 1.0.0
 description: >
   微信公众号全流程运营：选题→采集→写作→排版→发布→数据分析→评论管理。
   Use when: (1) 用户要写公众号文章或提供了选题方向,
@@ -45,7 +46,7 @@ node scripts/setup.mjs
 ### Step 0: 选题准备
 
 **如果老板没有指定具体选题**，先检查选题池：
-1. 读取 `~/.openclaw/workspace/collections/topics/topic-pool.md`
+1. 读取 `<WORKSPACE>/collections/topics/topic-pool.md`
 2. 列出当前高优选题，每个附带角度和素材情况
 3. 让老板选择，或老板提出新选题
 4. 选定后进入 Step 1
@@ -68,8 +69,8 @@ node scripts/setup.mjs
 
 **2a. 收藏库检索（优先）**
 先从个人收藏库中检索相关素材——这是让文章有"人味"的关键（详见 writing-techniques.md §五）：
-1. 标签匹配：`grep -i "关键词" ~/.openclaw/workspace/collections/tags.md`
-2. 全文搜索：`grep -ril "关键词" ~/.openclaw/workspace/collections/`
+1. 标签匹配：`grep -i "关键词" <WORKSPACE>/collections/tags.md`
+2. 全文搜索：`grep -ril "关键词" <WORKSPACE>/collections/`
 3. 有匹配时，读取对应文件的核心观点、要点摘录、个人笔记
 4. 标记可用素材的使用场景：开头引入？观点支撑？案例展示？反面论据？
 5. 收藏素材用自己的话重新表述，自然融入文章，不是学术式引用
@@ -134,7 +135,7 @@ node scripts/setup.mjs
 设计指南见 `references/cover-image-guide.md`。两种方案：
 
 **方案 A（优先）：Seedream 5.0 Lite 生成**
-- `~/.openclaw/workspace/scripts/seedream-generate.sh "prompt" output.jpg "2560x1080" 1`
+- `<WORKSPACE>/scripts/seedream-generate.sh "prompt" output.jpg "2560x1080" 1`
 - 0.22 元/张，质量高，无免费额度限制
 - 根据内容类型选配色（见 cover-image-guide.md）
 - 2.35:1 横版：先用 `2560x1440`(16:9) 生成，再 `sips -c 1090 2560` 裁剪为 2.35:1
@@ -175,15 +176,30 @@ node scripts/setup.mjs
 
 **4.5b 生图执行**
 
-- **AI 生图优先级**：Seedream 5.0 Lite → nano-banana-pro → ComfyUI
-  - Seedream: `~/.openclaw/workspace/scripts/seedream-generate.sh "prompt" output.jpg "2560x1440"`
+配图有两条渲染路径，在配图计划表中按每张图标注：
+
+**路径 A：AI 生图**（视觉美感优先，适合大部分场景）
+- **优先级**：Seedream 5.0 Lite → nano-banana-pro → ComfyUI
+  - Seedream: `<WORKSPACE>/scripts/seedream-generate.sh "prompt" output.jpg "2560x1440"`
   - 正文插图 16:9 `2560x1440`
 - **Prompt 按 LDSCS-R 六层结构构造**：Layout → Data → Semantics → Characters → Style → Ratio
 - **风格锚点**：第一张图成功后，记录风格特征到 `prompts/style-anchor.md`，后续图片引用保持一致
 - **Prompt 持久化**：每张图的 prompt 保存到 `prompts/NN-{type}-{slug}.md`，便于回溯修改
-- 截图美化：`~/.openclaw/workspace/scripts/beautify-screenshot.sh <input> [output] --shadow --bg "#f5f5f5"`
-- 水印去除：`~/.openclaw/workspace/scripts/remove-watermark.sh <input> [output]`（nano-banana-pro 需去水印）
+
+**路径 B：Mermaid 渲染截图**（信息精确性优先，技术文章的流程/架构/对比图）
+- **适用条件**：配图计划中 Style 标注为 `mermaid-render` 的插图
+- **工作流**：
+  1. 生成 Mermaid 代码（遵守 `references/illustration-prompts.md` 中的 Mermaid 规范）
+  2. 写入 `<WORKSPACE>/scripts/mermaid-render.html`（临时 HTML 模板）
+  3. 浏览器打开 → resize 2560x1440 → screenshot
+  4. 裁剪白边（如需要）→ 存入 `images/`
+- **Mermaid prompt 也持久化**：保存到 `prompts/NN-{type}-{slug}.md`，记录 Mermaid 源码
+
+**通用规则**：
+- 截图美化：`<WORKSPACE>/scripts/beautify-screenshot.sh <input> [output] --shadow --bg "#f5f5f5"`
+- 水印去除：`<WORKSPACE>/scripts/remove-watermark.sh <input> [output]`（nano-banana-pro 需去水印）
 - 配图数量：宁缺毋滥。不确定要不要配图 → 不配。
+- 同一篇文章中路径 A 和路径 B 可以混用，但渲染方式不超过 2 种。
 
 ### Step 4.6: 产品截图获取
 

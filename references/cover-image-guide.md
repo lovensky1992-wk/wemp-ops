@@ -2,7 +2,7 @@
 
 ## 生图工具优先级
 
-1. **Seedream 5.0 Lite**（优先）：`~/.openclaw/workspace/scripts/seedream-generate.sh`，0.22元/张，无水印
+1. **Seedream 5.0 Lite**（优先）：`<WORKSPACE>/scripts/seedream-generate.sh`，0.22元/张，无水印
 2. **nano-banana-pro**（备选）：Gemini 免费层级，需去水印，额度可能耗尽
 3. **HTML 截图**（兜底）：精确控制布局时使用
 
@@ -35,7 +35,7 @@
 
 ```bash
 # 生成 16:9 封面，再裁剪为 2.35:1
-~/.openclaw/workspace/scripts/seedream-generate.sh \
+<WORKSPACE>/scripts/seedream-generate.sh \
   "专业公众号封面图，主题[主题]。[配色]渐变背景。左侧40%放大号中文标题「[标题]」和副标题「[副标题]」，右侧60%放[视觉元素]，现代3D风格图标。干净设计，文字和视觉不重叠。横版，高质量。" \
   cover.jpg "2560x1440" 1
 # 裁剪为 2.35:1

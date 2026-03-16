@@ -364,10 +364,10 @@ AI 生成内容最大的问题不是语法，是"没有自己的经历和观点"
 
 ```bash
 # 1. 按标签搜索相关素材
-grep -i "关键词" ~/.openclaw/workspace/collections/tags.md
+grep -i "关键词" <WORKSPACE>/collections/tags.md
 
 # 2. 全文搜索
-grep -ril "关键词" ~/.openclaw/workspace/collections/
+grep -ril "关键词" <WORKSPACE>/collections/
 
 # 3. 读取素材详情，提取可用内容
 # 重点关注：核心观点、个人笔记/批注、真实数据
