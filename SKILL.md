@@ -152,7 +152,7 @@ node scripts/setup.mjs
 - 或用 `2880x1280` 生成后裁剪
 - ⚠️ 不用 emoji（浏览器截图会变色块），用纯文字 + 几何图形
 
-**方案 B（备选）：nano-banana-pro 生成**
+**方案 B（备选）：Gemini 生图（generate-image.sh）**
 - Gemini 免费层级，额度可能耗尽
 - 适合轻量配图、额度充足时使用
 
@@ -189,7 +189,7 @@ node scripts/setup.mjs
 配图有两条渲染路径，在配图计划表中按每张图标注：
 
 **路径 A：AI 生图**（视觉美感优先，适合大部分场景）
-- **优先级**：Seedream 5.0 Lite → nano-banana-pro → ComfyUI
+- **优先级**：Seedream 5.0 Lite → Gemini 生图 → ComfyUI
   - Seedream: `<WORKSPACE>/scripts/seedream-generate.sh "prompt" output.jpg "2560x1440"`
   - 正文插图 16:9 `2560x1440`
 - **Prompt 按 LDSCS-R 六层结构构造**：Layout → Data → Semantics → Characters → Style → Ratio
@@ -207,7 +207,7 @@ node scripts/setup.mjs
 
 **通用规则**：
 - 截图美化：`<WORKSPACE>/scripts/beautify-screenshot.sh <input> [output] --shadow --bg "#f5f5f5"`
-- 水印去除：`<WORKSPACE>/scripts/remove-watermark.sh <input> [output]`（nano-banana-pro 需去水印）
+- 水印去除：`<WORKSPACE>/scripts/remove-watermark.sh <input> [output]`（Gemini 生图 需去水印）
 - 配图数量：宁缺毋滥。不确定要不要配图 → 不配。
 - 同一篇文章中路径 A 和路径 B 可以混用，但渲染方式不超过 2 种。
 
@@ -374,7 +374,7 @@ AI 生成回复建议时遵循 `persona.md` 的语气规范，用户确认后再
 自动调用 `xiaohongshu-ops` 技能：
 1. **标题**：从公众号标题中提炼，加 emoji，≤20 字
 2. **正文**：缩写到 300-600 字，口语化改写，去掉长段落
-3. **配图**：从公众号文章中选 1-3 个核心观点，制作信息卡（Seedream 优先，备选 nano-banana-pro / HTML截图）
+3. **配图**：从公众号文章中选 1-3 个核心观点，制作信息卡（Seedream 优先，备选 Gemini 生图 / HTML截图）
 4. **标签**：5-10 个小红书话题标签
 5. 通过 openclaw browser 发布到创作中心
 
