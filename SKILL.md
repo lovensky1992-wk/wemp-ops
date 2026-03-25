@@ -296,7 +296,33 @@ node scripts/publisher.mjs --publish --media-id <草稿media_id>
 - 结尾是否有力？（读完后想做什么）
 如果子 Agent 发现盲点，修改后再交付。
 
-### Step 8: 交付
+### Step 8: 风格学习采集
+
+**写作完成时自动执行，不需要老板操作。**
+
+在 Step 3 写作完成（draft-v1.md 定稿）后，自动记录 AI 原稿：
+```bash
+python3 <WORKSPACE>/scripts/style-observe.py record-original <工作目录>/draft-v1.md --skill wemp-ops --topic "选题关键词"
+```
+
+当老板确认最终版（可能经过多轮修改）后，记录最终版：
+```bash
+python3 <WORKSPACE>/scripts/style-observe.py record-final <最终版文件> --skill wemp-ops
+```
+
+**触发 record-final 的信号**：
+- 老板说"可以了"/"发吧"/"推到草稿箱"
+- 老板手动修改后把最终版发回来
+- 文章已发布（从草稿箱发布 = 确认最终版）
+
+**如果老板没有修改直接发布**，也要 record-final（no_change = 正反馈，说明这次写得好）。
+
+积累 5+ 对 diff 后，可执行风格规则提取：
+```bash
+python3 <WORKSPACE>/scripts/style-observe.py pairs --skill wemp-ops --days 30
+```
+
+### Step 9: 交付
 
 向用户汇报：文章标题、字数、草稿状态、封面预览、建议发布时间。
 

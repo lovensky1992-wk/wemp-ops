@@ -1,5 +1,17 @@
 # 语言风格指南
 
+## Voice Dimensions（量化风格锚点）
+
+写作时以这些分数为锚点，确保风格一致。详见 `<WORKSPACE>/memory/style-runs/voice-dimensions.md`。
+
+| Dimension | Score | 说明 |
+|-----------|-------|------|
+| formal_casual | **4/10** | 口语化但有逻辑 |
+| technical_accessible | **6/10** | 技术用比喻，不回避深度 |
+| serious_playful | **5/10** | 中间偏正经，每 200 字 1 个微幽默 |
+| concise_elaborate | **5/10** | 2000-3000 字，每段 3-5 句 |
+| reserved_expressive | **7/10** | 有观点敢判断，承认局限 |
+
 ## 句式
 
 - 短句优先，单句 ≤25 字
