@@ -180,19 +180,19 @@ node scripts/setup.mjs
 
 ### Step 4: 封面图
 
-设计指南见 `references/cover-image-guide.md`。两种方案：
+设计指南见 `references/cover-image-guide.md`。三种方案按优先级：
 
-**方案 A（优先）：Seedream 5.0 Lite 生成**
-- `<WORKSPACE>/scripts/seedream-generate.sh "prompt" output.jpg "2560x1080" 1`
-- 0.22 元/张，质量高，无免费额度限制
-- 根据内容类型选配色（见 cover-image-guide.md）
-- 2.35:1 横版：先用 `2560x1440`(16:9) 生成，再 `sips -c 1090 2560` 裁剪为 2.35:1
-- 或用 `2880x1280` 生成后裁剪
+**方案 A（优先）：idealab Image API**
+- `<WORKSPACE>/scripts/generate-image.sh --prompt "prompt" --filename output.jpg --size 2560x1440`
+- 默认模型 `Imagen3Fast`，团队 AK 无额度限制
+- 2.35:1 裁剪：生成后 `sips -c 1090 2560 output.jpg`
+- 超时/报错时脚本自动降级到 Gemini Key 轮换
 - ⚠️ 不用 emoji（浏览器截图会变色块），用纯文字 + 几何图形
 
-**方案 B（备选）：Gemini 生图（generate-image.sh）**
-- Gemini 免费层级，额度可能耗尽
-- 适合轻量配图、额度充足时使用
+**方案 B（降级）：Seedream 5.0 Lite**
+- `<WORKSPACE>/scripts/seedream-generate.sh "prompt" output.jpg "2560x1440" 1`
+- 0.22 元/张，idealab 不稳定时使用
+- 裁剪同方案 A：`sips -c 1090 2560 output.jpg`
 
 **方案 C（兜底）：HTML 渲染 + 浏览器截图**
 - 写一个 HTML 页面（渐变背景 + 标题文字 + SVG 图形）
@@ -227,8 +227,10 @@ node scripts/setup.mjs
 配图有两条渲染路径，在配图计划表中按每张图标注：
 
 **路径 A：AI 生图**（视觉美感优先，适合大部分场景）
-- **优先级**：Seedream 5.0 Lite → Gemini 生图 → ComfyUI
-  - Seedream: `<WORKSPACE>/scripts/seedream-generate.sh "prompt" output.jpg "2560x1440"`
+- **优先级**：idealab Image API → Seedream 5.0 Lite → Gemini 生图 → ComfyUI
+  - idealab（首选）: `<WORKSPACE>/scripts/generate-image.sh --prompt "prompt" --filename output.jpg --size 2560x1440`
+    - 默认模型 `Imagen3Fast`，团队AK无额度限制；超时/报错自动降级到 Gemini
+  - Seedream（降级）: `<WORKSPACE>/scripts/seedream-generate.sh "prompt" output.jpg "2560x1440"`
   - 正文插图 16:9 `2560x1440`
 - **Prompt 按 LDSCS-R 六层结构构造**：Layout → Data → Semantics → Characters → Style → Ratio
 - **风格锚点**：第一张图成功后，记录风格特征到 `prompts/style-anchor.md`，后续图片引用保持一致
