@@ -348,6 +348,20 @@ node scripts/publisher.mjs --publish --media-id <草稿media_id>
 **默认停在草稿箱，不自动发布。** 告知用户草稿已创建，确认后再发布。
 推送新版本时自动清理同标题旧草稿（`--no-cleanup` 跳过）。
 
+### Step 6+: 发布数据回流（推送草稿箱后自动执行）
+
+推送草稿箱成功后，顺便采集历史文章数据，用于选题评分校准。
+
+```
+1. browser(action=tabs, profile="user") 检查是否有 mp.weixin.qq.com tab
+2. 有 → browser(action=snapshot, targetId=<tab_id>) 读取发表记录页
+3. 从 snapshot 提取每篇文章的：标题、阅读量、点赞、分享、留言
+4. 自动更新 collections/topics/publish-feedback.md
+5. 没有 tab 或 snapshot 失败 → 跳过，不影响主流程
+```
+
+注意：此步不影响主流程，失败就跳过。数据用于选题评分校准（见 eval-criteria.md + publish-feedback.md）。
+
 ### Step 6.5: 五维内容自检（交付前必做）
 
 排版完成后、交付前，逐维度自检。任何一项 ❌ 必须修改后再进入下一步。
