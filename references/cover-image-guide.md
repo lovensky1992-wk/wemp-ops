@@ -339,9 +339,13 @@ mood: [subtle/balanced/bold]
 - 横版，高质量
 ```
 
-### Seedream 调用
+### 生图调用
 
 ```bash
+# 首选：idealab Chat API（团队AK免费）
+<WORKSPACE>/scripts/generate-image.sh "[组装好的 prompt]" cover.jpg
+
+# 降级：Seedream（idealab 不可用时）
 <WORKSPACE>/scripts/seedream-generate.sh \
   "[组装好的 prompt]" \
   cover.jpg "2560x1440" 1
@@ -376,9 +380,9 @@ sips -c 1090 2560 cover.jpg
 
 ## 生图工具优先级
 
-1. **Seedream 5.0 Lite**（优先）：`<WORKSPACE>/scripts/seedream-generate.sh`，0.22元/张，无水印
-2. **nano-banana-pro**（备选）：Gemini 免费层级，需去水印
-3. **DashScope qwen-image-2.0-pro**（中文文字专用）：当 Seedream 中文渲染失败时
+1. **idealab Chat API**（首选）：`<WORKSPACE>/scripts/generate-image.sh`，团队AK免费无额度压力，~25s/张
+2. **Seedream 5.0 Lite**（降级）：`<WORKSPACE>/scripts/seedream-generate.sh`，0.22元/张，idealab不可用时
+3. **DashScope qwen-image-2.0-pro**（中文文字专用）：当中文渲染失败时
 4. **HTML 截图**（兜底）：typography 类型封面可用 HTML 精确控制文字
 
 ---

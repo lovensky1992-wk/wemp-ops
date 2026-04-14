@@ -752,23 +752,20 @@ Maintain visual consistency with previous illustrations:
 
 ## 七、生图工具优先级
 
-**Seedream 5.0 Lite → nano-banana-pro → ComfyUI**
+**idealab Chat API → Seedream 5.0 Lite → ComfyUI**
 
 | 工具 | 优势 | 劣势 | 使用场景 |
 |------|------|------|---------|
-| Seedream 5.0 Lite | 0.22元/张、无水印、质量高 | 需 API Key | 主力生图 |
-| nano-banana-pro (Gemini) | 免费、3 Key 轮换 | 需去水印、额度限制 | 备选/快速迭代 |
+| idealab Chat API | 团队AK免费、无额度压力、~25s/张 | 无 | **首选主力生图** |
+| Seedream 5.0 Lite | 0.22元/张、无水印、质量高 | 有成本 | idealab不可用时降级 |
 | ComfyUI (本地) | 无费用、无限制 | 需启动、MPS 较慢 | 兜底 |
 
 ```bash
-# Seedream
+# idealab Chat API（首选）
+<WORKSPACE>/scripts/generate-image.sh "prompt" output.jpg
+
+# Seedream（降级）
 <WORKSPACE>/scripts/seedream-generate.sh "prompt" output.jpg "2560x1440" 1
-
-# nano-banana-pro (Gemini)
-<WORKSPACE>/scripts/generate-image.sh "prompt" output.png
-
-# 去水印（nano-banana-pro 生图用）
-<WORKSPACE>/scripts/remove-watermark.sh <input> [output]
 ```
 
 ### 批量生成策略
