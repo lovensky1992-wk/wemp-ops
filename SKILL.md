@@ -318,6 +318,20 @@ python3 <WORKSPACE>/scripts/style-observe.py pairs --skill wemp-ops --days 30
 
 向用户汇报:文章标题、字数、草稿状态、封面预览、建议发布时间。
 
+### 🔴 Final: 机械验证（不可跳过）
+
+交付前运行：
+```bash
+bash scripts/skill-verify.sh wemp-ops <markdown-file> [cover-image]
+# 例: bash scripts/skill-verify.sh wemp-ops temp/wemp/article.md temp/wemp/cover.jpg
+```
+- `<markdown-file>` = 最终 Markdown 文稿路径
+- `[cover-image]` = 封面图路径（可选）
+- ✅ ALL PASSED → 回复用户
+- ❌ FAILED → 按输出补齐缺失项（配图数量/自评残留/裸链接等），重新验证直到通过
+
+绝不在验证未通过时回复用户"已完成"。
+
 ## 仅采集
 
 ```bash
