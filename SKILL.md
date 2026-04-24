@@ -318,6 +318,20 @@ python3 <WORKSPACE>/scripts/style-observe.py pairs --skill wemp-ops --days 30
 
 向用户汇报:文章标题、字数、草稿状态、封面预览、建议发布时间。
 
+### Step 12.5: Obsidian 归档（交付后自动执行）
+
+将定稿文章和配图归档到 Obsidian `创作/公众号/`，保留完整创作记录。
+
+```bash
+bash scripts/archive-to-obsidian.sh --platform wemp \
+  --article temp/wemp/<article>.md \
+  --images temp/wemp/cover.jpg temp/wemp/fig-*.jpg
+```
+
+- 自动注入 `archived_at` 和 `platform` 到 frontmatter
+- 图片复制到 `创作/公众号/images/`，文内引用自动替换为相对路径
+- 失败不阻塞主流程，记录警告即可
+
 ### 🔴 Final: 机械验证（不可跳过）
 
 交付前运行：
