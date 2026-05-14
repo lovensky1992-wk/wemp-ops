@@ -1,11 +1,11 @@
 # 封面图设计指南
 
-## 五维度选择体系
+## 七维度选择体系
 
-封面图由 5 个独立维度交叉定义。每个维度独立选择，通过兼容矩阵确保组合合理。
+封面图由 7 个独立维度交叉定义，外加一个可选的 Art Reference 锚点层。每个维度独立选择，通过兼容矩阵确保组合合理。
 
 ```
-文章内容 → 自动推荐五维度组合 → 老板确认/调整 → 组装 prompt → 生成
+文章内容 → 自动推荐七维度组合 → [可选] 叠加 Art Reference → 老板确认/调整 → 组装 prompt → 生成
 ```
 
 ---
@@ -33,6 +33,11 @@
 | `mono` | #1A1A1A + #F5F5F5 | 极简/黑白灰 | 哲理、极简、金句 |
 | `warm` | #F5E6D0 + #D4956A + #7BA3A8 | 温暖/莫兰迪 | 个人故事、感悟 |
 | `dark` | #0F172A + #3B82F6 + #06B6D4 | 高级/深色 | 电影感、高级观点 |
+| `gallery` | #2C2C2C + #F5F0E8 + #C8A96E | 美术馆/画廊感（深灰+米白+金） | 深度文章、文化品味 |
+| `monet` | #6B9BC3 + #F4E8C1 + #A8C97F + #E8B87C | 印象派色系（蓝天+暖光+绿荫+赭） | 洞察类、趋势观察 |
+| `pop` | #FF1744 + #FFEA00 + #2979FF + #000000 | 波普艺术（高饱和红黄蓝+黑） | 争议观点、打破认知 |
+| `edo` | #2D4A3E + #C8553D + #F2E8CF + #1B1B1B | 江户色（靖蓝+朱红+素纸+墨） | 东方叙事、方法论 |
+| `darkroom` | #1A1A1A + #F5F5F5 + #D4A574 | 暗房/胶片感（纯黑+高光+暖褐） | 个人故事、纪实感 |
 
 ### 维度 3：渲染风格（Rendering）
 
@@ -45,6 +50,12 @@
 | `digital` | 数据可视化、仪表盘风、打磨感 | polished digital render, data dashboard aesthetic, clean gradients |
 | `screen-print` | 丝网印刷、半色调、2-4色 | screen print poster art, halftone dots, 2-4 flat colors, stencil-cut |
 | `chalk` | 黑板粉笔、教学感、粗糙质感 | chalkboard style, chalk texture, rough hand-lettering, dark background |
+| `oil-painting` | 油画厚涂笔触、古典光影、画廊质感 | oil painting impasto, visible brushstrokes, Renaissance lighting, gallery-quality, rich texture |
+| `ukiyo-e` | 浮世绘木版画、平面色块、勾线描边、和风 | ukiyo-e woodblock print style, flat bold colors, black outlines, wave patterns, Japanese aesthetic |
+| `collage` | 拼贴风、杂志剪报、纹理叠加、错位排列 | mixed-media collage, magazine cutouts, torn paper edges, layered textures, found objects |
+| `risograph` | Riso印刷、半透明色层叠加、颗粒感、限色2-3色 | risograph print, limited 2-3 color overlay, grain texture, misregistration, indie press feel |
+| `ink-wash` | 水墨写意、留白呼吸、浓淡干湿、气韵 | Chinese ink wash painting, sumi-e, elegant emptiness, bold-thin brush contrast, zen atmosphere |
+| `poster-art` | 复古海报、强字体排版、大色块、宣传画感 | vintage poster art, bold typography, limited palette, propaganda style, strong visual hierarchy |
 
 ### 维度 4：文字密度（Text）
 
@@ -74,21 +85,126 @@
 
 ---
 
+### 维度 7：布局策略（Layout）
+
+封面图在微信生态中有多种裁切场景，布局策略决定核心信息在不同场景下的完整性。
+
+| 布局 | 构图方式 | 安全区处理 | 适用 |
+|------|---------|-----------|------|
+| `centered` | 标题+视觉元素全部居中，填满安全区 | 安全区=核心内容区 | 大多数文章（**默认**） |
+| `full-bleed` | 视觉铺满整个 900×383，标题叠加在画面上 | 标题仍在安全区，背景可出界 | 视觉冲击类（hero/metaphor） |
+| `split` | 左右或上下对比分屏 | ☦️ 标题必须在中间偏左，不能完全靠左 | 对比/产品类（split） |
+
+**Layout 与 Type 的强绑定：**
+
+| Type | 推荐 Layout | 原因 |
+|------|------------|------|
+| `hero` | full-bleed | 视觉铺满才有冲击力 |
+| `conceptual` | centered | 概念图+标题居中最稳 |
+| `typography` | centered | 文字本身就是主体 |
+| `metaphor` | full-bleed | 隐喻物体需要画面空间 |
+| `split` | split | 对比就是分区 |
+| `minimal` | centered | 留白的核心在居中 |
+
+---
+
+### 可选层：Art Reference（艺术锚点）
+
+Art Reference 是叠加在七维度之上的可选层，用名画/艺术运动的视觉语言提升封面的文化感和趣味性。
+
+**使用规则：**
+1. Art Reference 是可选的——大多数文章用普通七维度就够了
+2. 触发条件：文章主题有“跨界”、“打破常规”、“深度思考”、“文化”、“趋势变革”属性时推荐
+3. 不是直接复刻名画：而是提取名画的**视觉语言**（色调、笔触、构图、氛围）融入封面
+4. 前景文字必须清晰：名画元素只作为背景/纹理层，标题区域强制高对比
+
+#### Art Reference 预设库
+
+| Reference ID | 名画/艺术运动 | 视觉锚点 | 封面中的用法 | 推荐搭配 |
+|---|---|---|---|---|
+| `starry-night` | 梵高《星空》 | 漩涡笔触、深蓝+金黄色调、流动感 | 漩涡笔触铺满背景，前景简洁标题 | oil-painting + gallery, Layout=full-bleed |
+| `great-wave` | 葛饰北斋《神奈川冲浪里》 | 浪花线条、蓝白对比、动势强 | 浪花作为视觉主体，标题嵌入留白处 | ukiyo-e + edo, Layout=full-bleed |
+| `mondrian` | 蒙德里安 格子画 | 红黄蓝+黑色网格、几何分割 | 用色块分割封面信息区域 | flat-vector + pop, Layout=centered |
+| `warhol` | 沃霍尔 波普 | 重复图像、撞色、丝网印刷感 | 核心概念重复排列+颜色变体 | risograph + pop, Layout=centered |
+| `monet-garden` | 莫奈《睡莲》《日出·印象》 | 光影斑驳、色彩晕染、模糊边缘 | 梦幻背景底，前景高对比文字 | oil-painting + monet, Layout=full-bleed |
+| `song-dynasty` | 宋代山水（范宽/郭熙） | 气韵留白、山石皴法、淡墨层次 | 大面积留白+角落意境元素，标题居中 | ink-wash + edo/gallery, Layout=centered |
+| `bauhaus` | 包豪斯 | 几何形状、原色、功能至上 | 几何图形组织信息层级 | flat-vector/poster-art + pop, Layout=centered |
+| `film-noir` | 黑色电影 | 强明暗对比、剪影、戏剧光 | 人物/物体剪影+光束，标题嵌入暗部 | digital + darkroom, Layout=full-bleed |
+
+#### Art Reference 与布局的搭配指导
+
+| Art Reference | 推荐 Layout | 名画元素放哪 | 标题放哪 |
+|---|---|---|---|
+| `starry-night` | full-bleed | 漩涡笔触铺满背景 | 安全区内，叠深色半透明遮罩 |
+| `great-wave` | full-bleed | 浪花占据右侧+上方 | 安全区左下角，避开浪花区域 |
+| `mondrian` | centered | 色块网格作为信息分区 | 在最大色块内 |
+| `warhol` | centered | 重复图案在安全区内排列 | 顶部或底部条幅区域 |
+| `monet-garden` | full-bleed | 印象派色彩铺满背景 | 安全区内，底部暗色带+白字 |
+| `song-dynasty` | centered | 留白即构图，意境元素在角落 | 安全区正中，大字+大留白 |
+| `bauhaus` | centered | 几何色块分割版面 | 在主色块区域内 |
+| `film-noir` | full-bleed | 强光影/剪影铺满 | 安全区内高亮区域 |
+
+#### Art Reference 与 Rendering 兼容矩阵
+
+| Rendering \ Art Ref | starry-night | great-wave | mondrian | warhol | monet-garden | song-dynasty | bauhaus | film-noir |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `oil-painting` | ✓✓ | ✗ | ✗ | ✗ | ✓✓ | ✗ | ✗ | ✗ |
+| `ukiyo-e` | ✗ | ✓✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ |
+| `collage` | ✓ | ✓ | ✓ | ✓✓ | ✓ | ✗ | ✓ | ✓ |
+| `risograph` | ✗ | ✗ | ✓ | ✓✓ | ✗ | ✗ | ✓✓ | ✗ |
+| `ink-wash` | ✗ | ✓ | ✗ | ✗ | ✗ | ✓✓ | ✗ | ✗ |
+| `poster-art` | ✗ | ✗ | ✓✓ | ✓ | ✗ | ✗ | ✓✓ | ✓ |
+| `flat-vector` | ✗ | ✗ | ✓✓ | ✗ | ✗ | ✗ | ✓✓ | ✗ |
+| `digital` | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✓ | ✓✓ |
+| `3d-icon` | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| `hand-drawn` | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| `screen-print` | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✓ | ✓ |
+| `chalk` | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| `painterly` | ✓ | ✗ | ✗ | ✗ | ✓✓ | ✓ | ✗ | ✗ |
+
+> ✓✓ 强推荐 | ✓ 可用 | ✗ 不推荐
+
+---
+
 ## 构图核心原则（融合 baoyu-cover-image Base Prompt）
 
 每次生成封面图，prompt 末尾必须附加以下构图约束：
 
 ```
-Composition rules:
-- Generous whitespace: maintain 40-60% breathing room, avoid cluttered layouts
-- Visual anchor: main element centered or offset left (reserve right side for title area if title included)
+Composition rules for WeChat Official Account cover (900×383 display, 2.35:1):
+- SAFE ZONE: All text and critical visual elements MUST be within the center 383×383 square area
+  (the image will be center-cropped to 1:1 in share cards and history list)
+- Left and right margins (~258px each at 900px width) are "lossy zones" — decorative only, no key info
+- Text padding: minimum 30px from any edge
+- Thumbnail test: title must remain legible when displayed at 200px width (use large bold font)
+- Background visual CAN extend to full width, but core message stays centered
+- If using art reference background: apply 40-60% dark/light overlay on text area for contrast
+- Visual anchor: main element centered or offset within safe zone
 - Information hierarchy: one dominant focal point, 1-2 supporting elements, decorative accents
-- Clean backgrounds: solid colors or subtle gradients, no complex textures or patterns
+- Clean or art-reference backgrounds, no cluttered/busy competing elements in text zone
 - Characters: simplified silhouettes only, NO realistic human faces or bodies
-- Icon vocabulary: use simple recognizable icons to represent concepts (see table below)
 - Chinese text must be clearly readable, text and visuals must not overlap
 - No emoji (renders as color blocks in browser screenshots)
+- Horizontal layout, high quality
 ```
+
+### 安全区示意图
+
+```
+┌──────────────────────────────────────────────────────────┐
+│ ←258px→ ┌──────────────────────┐ ←258px→ │
+│  可丢失   │                      │  可丢失   │  900×383
+│  装饰区   │   383×383 安全区      │  装饰区   │  (2.35:1)
+│          │   核心标题+视觉       │          │
+│          │   必须在这里          │          │
+│          └──────────────────────┘          │
+└──────────────────────────────────────────────────────────┘
+```
+
+**安全区规则：**
+- 头条大图（订阅号消息列表）：全幅 900×383 完整显示
+- 历史文章列表 / 朋友圈分享卡 / 对话框分享：居中裁切为 1:1 方图（只显示中间 383×383）
+- 次条/多条：独立 200×200 正方形（另外制作）
 
 ### 图标词汇表速查
 
@@ -141,6 +257,12 @@ Composition rules:
 | `digital` | 精确干净、圆滑 | 微光泰效果 | 微层次感 | polished digital render, clean gradients, dashboard aesthetic, subtle depth |
 | `screen-print` | 模板切割、粗犷 | 半色调点/色块边缘 | 扁平、无深度 | screen print poster, halftone dots, 2-4 flat colors, stencil-cut edges, bold contrast |
 | `chalk` | 粗糙手写、不均匀 | 粉笔飞粉感 | 扁平 | chalkboard style, chalk dust texture, rough hand-lettering, dark background, educational feel |
+| `oil-painting` | 厚重笔触、可见笔痕 | 油画堆叠质感 | 深度感、古典光影 | oil painting impasto, visible thick brushstrokes, Renaissance chiaroscuro lighting, gallery museum quality, rich layered texture |
+| `ukiyo-e` | 精确勾线、均匀轮廓 | 木版印刷纹理、平面填色 | 完全扁平、无深度 | ukiyo-e woodblock print, flat bold color fills, precise black outlines, wave/cloud patterns, Japanese Edo period aesthetic |
+| `collage` | 不规则边缘、擕裂感 | 报纸剪报/纸张纹理/胶带痕迹 | 多层叠加、错位 | mixed-media collage, magazine cutouts, torn paper edges, masking tape, layered found objects, intentional misalignment |
+| `risograph` | 略有偏移的色层边缘 | 粗颗粒、半透明色块 | 扁平、色层叠加产生混色 | risograph print, 2-3 spot color overlay, grain texture, slight misregistration, indie zine feel, limited palette |
+| `ink-wash` | 浓淡变化、飞白 | 宣纸渗透感、墨韵 | 层次感靠浓淡干湿 | Chinese ink wash sumi-e, rice paper texture, bold-thin brush contrast, elegant emptiness, zen atmosphere, poetic negative space |
+| `poster-art` | 粗犷模板切割、强对比 | 半色调网点、统一填色 | 扁平、强视觉层级 | vintage propaganda poster, bold display typography, limited flat colors, strong visual hierarchy, political poster art, Swiss poster tradition |
 
 ---
 
@@ -179,14 +301,14 @@ Composition rules:
 
 ### Type × Rendering
 
-| Type \ Rendering | 3d-icon | flat-vector | hand-drawn | painterly | digital | screen-print | chalk |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `hero` | ✓✓ | ✓ | ✓ | ✓ | ✓✓ | ✓ | ✗ |
-| `conceptual` | ✓✓ | ✓✓ | ✗ | ✗ | ✓✓ | ✓ | ✓ |
-| `typography` | ✓ | ✓✓ | ✓ | ✗ | ✓ | ✓✓ | ✓✓ |
-| `metaphor` | ✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓ |
-| `split` | ✓✓ | ✓✓ | ✓ | ✗ | ✓✓ | ✓ | ✗ |
-| `minimal` | ✓ | ✓✓ | ✓ | ✓✓ | ✓ | ✓✓ | ✓ |
+| Type \ Rendering | 3d-icon | flat-vector | hand-drawn | painterly | digital | screen-print | chalk | oil-painting | ukiyo-e | collage | risograph | ink-wash | poster-art |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `hero` | ✓✓ | ✓ | ✓ | ✓ | ✓✓ | ✓ | ✗ | ✓✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
+| `conceptual` | ✓✓ | ✓✓ | ✗ | ✗ | ✓✓ | ✓ | ✓ | ✗ | ✗ | ✓ | ✓ | ✓✓ | ✓ |
+| `typography` | ✓ | ✓✓ | ✓ | ✗ | ✓ | ✓✓ | ✓✓ | ✗ | ✗ | ✓ | ✓✓ | ✓ | ✓✓ |
+| `metaphor` | ✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓ | ✓✓ | ✓ |
+| `split` | ✓✓ | ✓✓ | ✓ | ✗ | ✓✓ | ✓ | ✗ | ✗ | ✓ | ✓✓ | ✓ | ✗ | ✓ |
+| `minimal` | ✓ | ✓✓ | ✓ | ✓✓ | ✓ | ✓✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓✓ | ✓ |
 
 ### Type × Mood
 
@@ -201,16 +323,21 @@ Composition rules:
 
 ### Palette × Rendering
 
-| Palette \ Rendering | 3d-icon | flat-vector | hand-drawn | painterly | digital | screen-print | chalk |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `tech-blue` | ✓✓ | ✓ | ✗ | ✗ | ✓✓ | ✓ | ✗ |
-| `insight-blue` | ✓✓ | ✓✓ | ✗ | ✗ | ✓✓ | ✓ | ✗ |
-| `action-orange` | ✓✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ |
-| `solution-green` | ✓✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ |
-| `trend-cyan` | ✓✓ | ✓✓ | ✗ | ✗ | ✓✓ | ✓ | ✗ |
-| `mono` | ✓ | ✓✓ | ✓ | ✗ | ✓ | ✓✓ | ✓✓ |
-| `warm` | ✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓ | ✗ |
-| `dark` | ✓✓ | ✓ | ✗ | ✗ | ✓✓ | ✓✓ | ✓✓ |
+| Palette \ Rendering | 3d-icon | flat-vector | hand-drawn | painterly | digital | screen-print | chalk | oil-painting | ukiyo-e | collage | risograph | ink-wash | poster-art |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `tech-blue` | ✓✓ | ✓ | ✗ | ✗ | ✓✓ | ✓ | ✗ | ✗ | ✗ | ✓ | ✓ | ✗ | ✓ |
+| `insight-blue` | ✓✓ | ✓✓ | ✗ | ✗ | ✓✓ | ✓ | ✗ | ✗ | ✗ | ✓ | ✓ | ✗ | ✓ |
+| `action-orange` | ✓✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ | ✓ | ✓ | ✗ | ✓✓ |
+| `solution-green` | ✓✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| `trend-cyan` | ✓✓ | ✓✓ | ✗ | ✗ | ✓✓ | ✓ | ✗ | ✗ | ✗ | ✓ | ✓ | ✗ | ✓ |
+| `mono` | ✓ | ✓✓ | ✓ | ✗ | ✓ | ✓✓ | ✓✓ | ✗ | ✓ | ✓✓ | ✓✓ | ✓ | ✓✓ |
+| `warm` | ✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓ | ✗ | ✓✓ | ✓ | ✓ | ✓ | ✓ | ✗ |
+| `dark` | ✓✓ | ✓ | ✗ | ✗ | ✓✓ | ✓✓ | ✓✓ | ✓ | ✗ | ✓ | ✓ | ✗ | ✓✓ |
+| `gallery` | ✓ | ✓ | ✗ | ✓✓ | ✓ | ✓ | ✗ | ✓✓ | ✓ | ✓ | ✓ | ✓✓ | ✓ |
+| `monet` | ✗ | ✗ | ✓ | ✓✓ | ✗ | ✗ | ✗ | ✓✓ | ✗ | ✓✓ | ✓ | ✗ | ✗ |
+| `pop` | ✓ | ✓✓ | ✓ | ✗ | ✓ | ✓✓ | ✗ | ✗ | ✗ | ✓✓ | ✓✓ | ✗ | ✓✓ |
+| `edo` | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✗ | ✓ | ✓✓ | ✗ | ✗ | ✓✓ | ✓ |
+| `darkroom` | ✓ | ✗ | ✗ | ✓ | ✓✓ | ✓✓ | ✗ | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ |
 
 > ✓✓ 强推荐 | ✓ 可用 | ✗ 不推荐
 
@@ -227,14 +354,14 @@ Composition rules:
 
 ### Font × Rendering
 
-| Font \ Rendering | 3d-icon | flat-vector | hand-drawn | painterly | digital | screen-print | chalk |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `clean` | ✓✓ | ✓✓ | ✗ | ✗ | ✓✓ | ✓ | ✗ |
-| `handwritten` | ✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✗ | ✓✓ |
-| `serif` | ✓ | ✓ | ✗ | ✓ | ✓✓ | ✓ | ✗ |
-| `display` | ✓✓ | ✓✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓ |
+| Font \ Rendering | 3d-icon | flat-vector | hand-drawn | painterly | digital | screen-print | chalk | oil-painting | ukiyo-e | collage | risograph | ink-wash | poster-art |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `clean` | ✓✓ | ✓✓ | ✗ | ✗ | ✓✓ | ✓ | ✗ | ✗ | ✗ | ✓ | ✓ | ✗ | ✓ |
+| `handwritten` | ✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✗ | ✓✓ | ✓ | ✓ | ✓✓ | ✗ | ✓✓ | ✗ |
+| `serif` | ✓ | ✓ | ✗ | ✓ | ✓✓ | ✓ | ✗ | ✓✓ | ✓ | ✓ | ✓ | ✓✓ | ✓ |
+| `display` | ✓✓ | ✓✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✗ | ✓✓ |
 
-**兼容检查**：选定六维度后，检查上方 5 张矩阵中是否有 ✗ 组合。有则提示调整。
+**兼容检查**：选定七维度后，检查上方矩阵中是否有 ✗ 组合。有则提示调整。另外检查 Art Reference 兼容矩阵（见上方 Art Reference 章节）。
 
 ---
 
@@ -262,6 +389,15 @@ Composition rules:
 | 行业、前沿、趋势报告 | `hero` | `trend-cyan` | `3d-icon` | title-only | balanced |
 | 解决方案、破局、方法 | `hero` | `solution-green` | `3d-icon` | title-only | balanced |
 | 电影感、高级、深度长文 | `typography` | `dark` | `screen-print` | title-only | bold |
+| 哲学、本质、底层逻辑、第一性 | `minimal` | `edo` | `ink-wash` | title-only | subtle |
+| 认知革命、范式转换、颠覆 | `hero` | `gallery` | `oil-painting` | title-only | bold |
+| 争议、反直觉、打脸、不同意 | `typography` | `pop` | `risograph` | title-only | bold |
+| 跨界、融合、碰撞、多视角 | `split` | `monet` | `collage` | title-only | balanced |
+| 个人经历、深夜、独处、夜晚、回忆 | `hero` | `darkroom` | `digital` | title-only | balanced |
+| 宣言、呼吁、必须、不得不 | `typography` | `pop` | `poster-art` | title-only | bold |
+| 趋势、浪潮、变革、时代、洪流 | `hero` | `monet` | `oil-painting` | title-only | bold |
+| 极简、克制、删繁就简、少即是多 | `minimal` | `gallery` | `ink-wash` | title-only | subtle |
+| 文化、艺术、美学、品味 | `hero` | `gallery` | `oil-painting` | title-only | balanced |
 
 ---
 
@@ -283,6 +419,12 @@ Composition rules:
 | `watercolor` | metaphor | warm | painterly | serif | 文学/艺术/反思 |
 | `cinematic` | hero | dark | screen-print | display | 电影感深度解读（mood=bold） |
 | `dashboard` | conceptual | insight-blue | digital | clean | 数据分析/SaaS拆解 |
+| `gallery-depth` | hero | gallery | oil-painting | serif | 深度分析/文化品味（Art Ref: monet-garden, Layout=full-bleed） |
+| `eastern-zen` | minimal | edo | ink-wash | serif | 方法论本质/极简哲理（Art Ref: song-dynasty, Layout=centered） |
+| `pop-challenge` | typography | pop | risograph | display | 争议观点/打破认知（Art Ref: warhol, Layout=centered, mood=bold） |
+| `collage-mix` | split | monet | collage | clean | 跨界融合/多视角对比（Layout=split） |
+| `film-story` | hero | darkroom | digital | serif | 个人经历/深度叙事（Art Ref: film-noir, Layout=full-bleed） |
+| `poster-manifesto` | typography | pop | poster-art | display | 宣言/呼吁/强观点（Art Ref: bauhaus, Layout=centered, mood=bold） |
 
 Text 默认 `title-only`，Mood 默认 `balanced`，除非预设标注（如 bold-opinion/cinematic → bold，zen-core → subtle）。
 
@@ -292,11 +434,33 @@ Text 默认 `title-only`，Mood 默认 `balanced`，除非预设标注（如 bol
 
 ## 尺寸规范
 
-| 用途 | 比例 | 生成尺寸 | 后处理 |
-|------|------|---------|--------|
-| 公众号封面 | 2.35:1 | `2560x1440`(16:9) | `sips -c 1090 2560` 裁剪 |
-| 公众号次条 | 1:1 | `1920x1920` | 无 |
-| 小红书封面 | 3:4 | `1680x2240` | 无 |
+| 用途 | 比例 | 生成尺寸 | 后处理 | 安全区 |
+|------|------|---------|--------|--------|
+| 公众号头条封面 | 2.35:1 | `2560x1440`(16:9) | `sips -c 1090 2560` 裁剪 | 中心 1090×1090 |
+| 公众号分享卡片 | 1:1 | `1920x1920` | 无 | 全图 |
+| 公众号次条 | 1:1 | `800x800` | 无 | 全图 |
+| 小红书封面 | 3:4 | `1680x2240` | 无 | - |
+
+### 生成与裁剪流程
+
+```bash
+# 1. AI 生图（16:9 高分辨率）
+<WORKSPACE>/scripts/generate-image.sh --prompt "...组装好的prompt..." --filename cover.jpg --size 2560x1440
+
+# 2. 裁剪为 2.35:1
+sips -c 1090 2560 cover.jpg
+
+# 3. 安全区验证：视觉检查中心 1090×1090 区域核心信息是否完整
+# 4. 缩略图测试：缩放到 200px 宽查看标题是否可辨认
+```
+
+### 布局策略与安全区的关系
+
+| Layout | 背景视觉 | 标题文字 | 安全区外 |
+|--------|---------|---------|----------|
+| `centered` | 纯色/渐变/轻纹理 | 安全区内居中 | 纯装饰或留白 |
+| `full-bleed` | 铺满全图（名画/油画/光影） | 安全区内 + 遮罩保证可读 | 视觉延伸 |
+| `split` | 左右分区 | 标题在中间偏左（安全区内） | 右侧视觉可被裁 |
 
 ---
 
@@ -425,10 +589,27 @@ Layout 16:9, high quality.
 
 ## 质量检查
 
-- [ ] 五维度组合通过兼容矩阵检查
-- [ ] Prompt 已保存到 `prompts/00-cover.md`
-- [ ] 中文文字清晰可读
-- [ ] 颜色鲜明，吸引眼球
+### 尺寸与安全区
+- [ ] 最终输出 2560×1090（2.35:1）
+- [ ] 标题文字在中心 1090×1090 安全区内
+- [ ] 左右装饰区无关键信息
+- [ ] 缩放到 200px 宽，标题仍可辨认
+
+### 文字与可读性
+- [ ] 中文标题清晰，无重叠/模糊
+- [ ] 文字区域有足够对比度（遮罩/纯色底）
+- [ ] 字号在安全区内占比 ≥ 30%（不能太小）
+- [ ] 无 emoji
+
+### 维度与风格
+- [ ] 七维度组合通过兼容矩阵检查
+- [ ] Art Reference（如有）视觉锚点识别清晰
+- [ ] Layout 与 Type 的绑定关系正确
 - [ ] 主题契合文章内容
-- [ ] 视觉和文字不重叠
+- [ ] 配色不超过 3-4 种主色
+- [ ] 颜色鲜明，吸引眼球
+
+### 文件
+- [ ] Prompt 已保存到 `prompts/00-cover.md`
+- [ ] 已去水印（AI 生图）
 - [ ] 裁剪后比例正确（2.35:1）
